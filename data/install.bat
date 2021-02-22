@@ -7,7 +7,7 @@ java -jar forge.jar --installServer
 cls
 
 del forge.jar
-del forge.jar.log
+del installer.log
 
 mkdir mods
 

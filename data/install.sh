@@ -7,7 +7,7 @@ java -jar forge.jar --installServer
 clear
 
 rm forge.jar
-rm forge.jar.log
+rm installer.log
 
 mkdir -p mods
 
