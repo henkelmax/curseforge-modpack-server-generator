@@ -58,10 +58,20 @@ module.exports = async function genertateServer(modpackZip, destination) {
 
     console.log('Adding mod downloads');
 
+    const modList = [];
+
     for (let mod of manifest.files) {
-        console.log(`Fetching download information of '${mod.projectID}'`);
+        console.log(`Fetching information of '${mod.projectID}'`);
+        const modInfo = await (await fetch(`https://addons-ecs.forgesvc.net/api/v2/addon/${mod.projectID}/`)).json();
+        modList.push({
+            name: modInfo.name,
+            by: modInfo.authors.map(author => author.name).join(', '),
+            url: modInfo.websiteUrl
+        });
+
+        console.log(`Fetching download information of '${modInfo.name}'`);
         const files = await (await fetch(`https://addons-ecs.forgesvc.net/api/v2/addon/${mod.projectID}/files/`)).json();
-        console.log(`Fetched download information of '${mod.projectID}'`);
+        console.log(`Fetched download information of '${modInfo.name}'`);
         console.log(`Searching for file '${mod.fileID}'`);
         const file = files.find(file => file.id === mod.fileID);
         console.log(`Generating download for '${file.fileName}'`);
@@ -74,6 +84,17 @@ module.exports = async function genertateServer(modpackZip, destination) {
     renderFile('./data/install.bat', dir, view);
     renderFile('./data/install.sh', dir, view);
     renderFile('./data/eula.txt', dir, view);
+
+    console.log('Generating mod list');
+
+    let modInfoMD = '# Mods\n\n';
+    for (let mod of modList) {
+        modInfoMD += `- [${mod.name}](${mod.url}) by ${mod.by}\n`;
+    }
+    const modlistPath = path.join(dir, 'modlist.md');
+    fs.writeFileSync(modlistPath, modInfoMD);
+
+    console.log(`Saved mod list to ${modlistPath}`);
 
     console.log(`Zipping folder '${dir}' to '${destination}'`);
 
