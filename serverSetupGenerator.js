@@ -49,6 +49,7 @@ module.exports = async function genertateServer(modpackZip, destination) {
         winDownloadModScript: '',
         linuxDownloadForgeScript: '',
         linuxDownloadModScript: '',
+        modpackName: manifest.name,
     }
 
     console.log('Generating forge downloading scripts');
@@ -84,6 +85,7 @@ module.exports = async function genertateServer(modpackZip, destination) {
     renderFile('./data/install.bat', dir, view);
     renderFile('./data/install.sh', dir, view);
     renderFile('./data/eula.txt', dir, view);
+    renderFile('./data/server.properties', dir, view);
 
     console.log('Generating mod list');
 
