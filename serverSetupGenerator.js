@@ -75,6 +75,12 @@ module.exports = async function genertateServer(modpackZip, destination) {
         console.log(`Fetched download information of '${modInfo.name}'`);
         console.log(`Searching for file '${mod.fileID}'`);
         const file = files.find(file => file.id === mod.fileID);
+        if (!file) {
+            console.error(`Failed to find file for '${modInfo.name}'`);
+            removeTempFolder(dir);
+            process.exit(-1);
+            return;
+        }
         console.log(`Generating download for '${file.fileName}'`);
         view.winDownloadModScript += `powershell -Command "Invoke-WebRequest ${file.downloadUrl}" -OutFile mods/${file.fileName}\n`;
         view.linuxDownloadModScript += `wget -O mods/${file.fileName} ${file.downloadUrl}\n`;
@@ -104,8 +110,11 @@ module.exports = async function genertateServer(modpackZip, destination) {
 
     console.log(`Zipped folder '${dir}' to '${destination}'`);
 
-    rimraf.sync(dir);
+    removeTempFolder(dir);
+}
 
+function removeTempFolder(dir) {
+    rimraf.sync(dir);
     console.log(`Removed temporary folder '${dir}'`);
 }
 
