@@ -86,12 +86,12 @@ module.exports = async function genertateServer(modpackZip, destination) {
         view.linuxDownloadModScript += `wget -O mods/${file.fileName} ${file.downloadUrl}\n`;
     }
 
-    renderFile('./data/start_server.bat', dir, view);
-    renderFile('./data/start_server.sh', dir, view);
-    renderFile('./data/install.bat', dir, view);
-    renderFile('./data/install.sh', dir, view);
-    renderFile('./data/eula.txt', dir, view);
-    renderFile('./data/server.properties', dir, view);
+    renderFile(path.join(__dirname, '../data/start_server.bat'), dir, view);
+    renderFile(path.join(__dirname, '../data/start_server.sh'), dir, view);
+    renderFile(path.join(__dirname, '../data/install.bat'), dir, view);
+    renderFile(path.join(__dirname, '../data/install.sh'), dir, view);
+    renderFile(path.join(__dirname, '../data/eula.txt'), dir, view);
+    renderFile(path.join(__dirname, '../data/server.properties'), dir, view);
 
     console.log('Generating mod list');
 
