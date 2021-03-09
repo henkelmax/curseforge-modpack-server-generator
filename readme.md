@@ -1,6 +1,6 @@
 # CurseForge Modpack Server Generator
 
-A tool to generate a server from a [CurseForge](https://www.curseforge.com/minecraft/modpacks) modpack zip.
+A tool to generate a server from a [CurseForge](https://www.curseforge.com/minecraft/modpacks) Minecraft modpack zip.
 
 ## Useful links
 
