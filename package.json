@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Max Henkel",
-  "scripts": {},
+  "scripts": {
+    "generate": "node generate.js"
+  },
   "dependencies": {
     "adm-zip": "^0.5.2",
     "archiver": "^5.2.0",
