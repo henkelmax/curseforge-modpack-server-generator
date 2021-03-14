@@ -30,20 +30,20 @@ jobs:
         uses: actions/upload-release-asset@v1.0.2
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: ./out/app-win.exe
+          asset_path: ./dist/app-win.exe
           asset_name: 'server_generator_win_${{ steps.get_release.outputs.tag_name }}.exe'
           asset_content_type: application/octet-stream
       - name: Upload MacOS Executable
         uses: actions/upload-release-asset@v1.0.2
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: ./out/app-macos
+          asset_path: ./dist/app-macos
           asset_name: 'server_generator_macos_${{ steps.get_release.outputs.tag_name }}'
           asset_content_type: application/octet-stream
       - name: Upload Linux Executable
         uses: actions/upload-release-asset@v1.0.2
         with:
           upload_url: ${{ steps.get_release.outputs.upload_url }}
-          asset_path: ./out/app-linux
+          asset_path: ./dist/app-linux
           asset_name: 'server_generator_linux_${{ steps.get_release.outputs.tag_name }}'
           asset_content_type: application/octet-stream
