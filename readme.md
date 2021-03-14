@@ -4,20 +4,10 @@ A tool to generate a server from a [CurseForge](https://www.curseforge.com/minec
 
 ## Useful links
 
+- [Downloads](https://github.com/henkelmax/curseforge-modpack-server-generator/releases)
 - [CurseForge Modpack Server Generator GitHub Action](https://github.com/henkelmax/build-modpack-server-action)
 - [Upload CurseForge Modpack GitHub Action](https://github.com/henkelmax/upload-curseforge-modpack-action)
 - [Example Usage](https://github.com/henkelmax/delivery-inc/blob/master/.github/workflows/release.yml)
-
-## Prerequisites
-
-- [Node.js](https://nodejs.org/en/)
-- [yarn](https://yarnpkg.com/getting-started/install)
-
-## Installation
-
-```sh
-yarn install
-```
 
 ## Command Line Parameters
 
@@ -28,6 +18,19 @@ yarn install
 
 ## Example usage
 
+``` ps1
+./server_generator_win_1.0.0.exe --modpack-zip "path/to/modpack.zip" --destination-path "out/server.zip"
+```
+
+## Development
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/en/)
+- [yarn](https://yarnpkg.com/getting-started/install)
+
+### Installation
+
 ```sh
-yarn generate --modpack-zip "path/to/modpack.zip" --destination-path "out/server.zip"
+yarn install
 ```
