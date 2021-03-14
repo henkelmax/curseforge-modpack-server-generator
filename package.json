@@ -4,16 +4,25 @@
   "main": "index.js",
   "author": "Max Henkel",
   "scripts": {
-    "generate": "node generate.js"
+    "generate": "node ./src/generate.js",
+    "build": "node ./src/build.js"
   },
   "dependencies": {
     "adm-zip": "^0.5.2",
     "archiver": "^5.2.0",
+    "colors": "^1.4.0",
     "fs-extra": "^9.1.0",
     "minimist": "^1.2.5",
     "mustache": "^4.1.0",
     "node-fetch": "^2.6.1",
     "rimraf": "^3.0.2",
     "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "pkg": "^4.4.9"
+  },
+  "pkg": {
+    "scripts": "src/**/*.js",
+    "assets": "data/**/*"
   }
 }

@@ -1,0 +1,49 @@
+on:
+  release:
+    types:
+      - created
+
+name: Build
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2.3.4
+      - name: Set up Node.js
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: '12'
+      - name: Build Executables
+        run: |
+          yarn install --non-interactive
+          yarn build
+      - name: Get Release
+        id: get_release
+        uses: bruceadams/get-release@v1.2.2
+      - name: Upload Windows Executable
+        uses: actions/upload-release-asset@v1.0.2
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: ./out/app-win.exe
+          asset_name: 'server_generator_win_${{ steps.get_release.outputs.tag_name }}.exe'
+          asset_content_type: application/octet-stream
+      - name: Upload MacOS Executable
+        uses: actions/upload-release-asset@v1.0.2
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: ./out/app-macos
+          asset_name: 'server_generator_macos_${{ steps.get_release.outputs.tag_name }}'
+          asset_content_type: application/octet-stream
+      - name: Upload Linux Executable
+        uses: actions/upload-release-asset@v1.0.2
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: ./out/app-linux
+          asset_name: 'server_generator_linux_${{ steps.get_release.outputs.tag_name }}'
+          asset_content_type: application/octet-stream
