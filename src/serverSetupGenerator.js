@@ -59,8 +59,8 @@ module.exports = async function genertateServer(modpackZip, destination) {
 
         console.log('Generating forge downloading scripts');
 
-        view.winDownloadForgeScript = `powershell -Command "Invoke-WebRequest https://files.minecraftforge.net/maven/net/minecraftforge/forge/${view.minecraftVersion}-${view.forgeVersion}/forge-${view.minecraftVersion}-${view.forgeVersion}-installer.jar -OutFile forge.jar"`;
-        view.linuxDownloadForgeScript = `wget -O forge.jar https://files.minecraftforge.net/maven/net/minecraftforge/forge/${view.minecraftVersion}-${view.forgeVersion}/forge-${view.minecraftVersion}-${view.forgeVersion}-installer.jar`;
+        view.winDownloadForgeScript = `powershell -Command "Invoke-WebRequest 'https://files.minecraftforge.net/maven/net/minecraftforge/forge/${view.minecraftVersion}-${view.forgeVersion}/forge-${view.minecraftVersion}-${view.forgeVersion}-installer.jar' -OutFile forge.jar"`;
+        view.linuxDownloadForgeScript = `wget -O "forge.jar" "https://files.minecraftforge.net/maven/net/minecraftforge/forge/${view.minecraftVersion}-${view.forgeVersion}/forge-${view.minecraftVersion}-${view.forgeVersion}-installer.jar"`;
 
         console.log('Adding mod downloads');
 
@@ -84,8 +84,8 @@ module.exports = async function genertateServer(modpackZip, destination) {
                 throw new Error(`Failed to find file for '${modInfo.name}'`);
             }
             console.log(`Generating download for '${file.fileName}'`);
-            view.winDownloadModScript += `powershell -Command "Invoke-WebRequest ${file.downloadUrl}" -OutFile mods/${file.fileName}\n`;
-            view.linuxDownloadModScript += `wget -O mods/${file.fileName} ${file.downloadUrl}\n`;
+            view.winDownloadModScript += `powershell -Command "Invoke-WebRequest '${file.downloadUrl}'" -OutFile mods/${file.fileName.replace(/ /g, '_')}\n`;
+            view.linuxDownloadModScript += `wget -O "mods/${file.fileName}" "${file.downloadUrl}"\n`;
         }
 
         renderFile(path.join(__dirname, '../data/start_server.bat'), dir, view);
